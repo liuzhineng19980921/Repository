@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--处理静态资源-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+<!--
+    <mvc:resources mapping="h-ui/images/**" location="/static/h-ui/images/"></mvc:resources>
+    <mvc:resources mapping="h-ui/js/**" location="/static/h-ui/js/"></mvc:resources>
+    <mvc:resources mapping="h-ui/css/**" location="/static/h-ui/css/"></mvc:resources>
+    <mvc:resources mapping="h-ui.admin/images/**" location="/static/h-ui.admin/images/"></mvc:resources>
+    <mvc:resources mapping="h-ui.admin/js/**" location="/static/h-ui.admin/js/"></mvc:resources>
+    <mvc:resources mapping="h-ui.admin/css/**" location="/static/h-ui.admin/css/"></mvc:resources>
+    <mvc:resources mapping="h-ui.admin/skin/**" location="/static/h-ui.admin/skin/"></mvc:resources>
+-->
+    <mvc:resources mapping="/lib/**" location="/user/lib/"></mvc:resources>
+    <mvc:resources mapping="/static/**" location="/user/static/"></mvc:resources>
+    <mvc:resources mapping="/temp/**" location="/user/temp/"></mvc:resources>
+    <mvc:resources mapping="/user/**" location="/user/"></mvc:resources>
+
+    <mvc:resources mapping="/user/layui/**" location="/user/layui/"></mvc:resources>
+
+    <context:component-scan base-package="com.lanou.controller"></context:component-scan>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <!--解决返回json数据乱码问题-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" >
+                <property name = "supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=utf-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--
+    支持文件上传的bean
+    id 必须等于 multipartResolver
+    -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1048000"></property> <!--1MB-->
+        <property name="defaultEncoding" value="utf-8"></property>
+    </bean>
+</beans>

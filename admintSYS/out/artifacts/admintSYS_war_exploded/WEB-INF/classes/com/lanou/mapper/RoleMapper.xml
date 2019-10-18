@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.mapper.RoleMapper">
+
+    <select id="selectAllRole" resultType="Role">
+          select role.*,GROUP_CONCAT(user.account) as userNameList from role,user
+          where user.role_id=role.id group by role.role_name order by role.id asc
+    </select>
+
+    <select id="selectRoleById" resultType="Role">
+        select * from role where id=#{id}
+    </select>
+
+    <insert id="addRole" parameterType="Role">
+        insert into role(role_name,role_text) values(#{roleName},#{roleText})
+    </insert>
+    <select id="selectRoles" resultType="Role">
+        select * from role
+    </select>
+
+    <select id="selectRoleByName" resultType="Role">
+        select * from role where role_name=#{roleName}
+    </select>
+
+    <select id="selectRole" resultType="Role">
+        select * from role where id=#{id}
+    </select>
+
+    <update id="updateRole" parameterType="Role">
+        update role set role_name=#{roleName},role_text=#{roleText} where id=#{id}
+    </update>
+
+    <select id="selectUserByRid" resultType="User">
+        select * from user where role_id=#{id}
+    </select>
+
+    <select id="deleteRole">
+        delete from role where id=#{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.mapper.UserMapper">
+
+    <select id="selectUser" resultType="User">
+        select * from user where account=#{account} and password=#{password}
+    </select>
+
+    <insert id="addUser">
+        insert into user(account,password,sex,phone,email,role_id,remark,create_time)
+        values (#{account},#{password},#{sex},#{phone},#{email},#{roleId},#{remark},now())
+    </insert>
+
+    <select id="selectAllUser" resultType="User">
+        select user.*,role.role_name from user ,role where user.role_id=role.id
+    </select>
+
+    <delete id="deleteUserById">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUserState1">
+        update user set state=1 where id=#{id}
+    </update>
+
+    <update id="updateUserState0">
+        update user set state=0 where id=#{id}
+    </update>
+
+    <update id="updateUserPwd">
+        update user set password=#{password} where id=#{id}
+    </update>
+
+</mapper>
+

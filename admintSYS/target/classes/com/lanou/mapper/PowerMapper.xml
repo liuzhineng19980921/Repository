@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.mapper.PowerMapper">
+
+   <select id="selectPowerById" resultType="Power">
+        select power.* ,power.power_name as title from power,role_power,user where power.id=role_power.power_id and
+        user.role_id=role_power.role_id and user.id=#{id}
+   </select>
+
+    <select id="selectAllPower" resultType="Power">
+        select *,power_name as title from power;
+    </select>
+
+    <select id="selectHeadPower" resultType="Power">
+        select * from power where f_id=0 or is_leaf=0
+    </select>
+
+    <insert id="addPower">
+        insert into power(power_name,f_id,url,is_leaf) values (#{powerName},#{fId},#{url},#{isLeaf})
+    </insert>
+
+    <select id="selectPower" resultType="com.lanou.bean.Power">
+        select * from power where id=#{id}
+    </select>
+
+    <update id="updatePower">
+        update power set power_name=#{powerName},f_id=#{fId},url=#{url},is_leaf=#{isLeaf} where id=#{id}
+    </update>
+
+    <delete id="deletePower">
+        delete from power where id=#{id}
+    </delete>
+
+    <select id="selectChildPower" resultType="com.lanou.bean.Power">
+        select * from power where f_id=#{id}
+    </select>
+
+</mapper>

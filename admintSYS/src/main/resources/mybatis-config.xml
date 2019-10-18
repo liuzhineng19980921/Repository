@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--加载数据库连接属性配置文件-->
+    <!--<properties resource="db.properties"></properties>-->
+
+    <!--设置相关内容-->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"></setting>
+        <setting name="cacheEnabled" value="true"></setting>
+        <setting name="useColumnLabel" value="true"></setting>
+    </settings>
+
+    <!--类重命名-->
+    <typeAliases>
+        <!--<typeAlias type="com.lanou.bean.User" alias="User"></typeAlias>-->
+        <package name="com.lanou.bean"></package>
+    </typeAliases>
+
+    <plugins>
+        <!--分页
+        通用插件 mysql，oracle，db2
+        4.0之后选择PageInterceptor 不用指定方言
+        4.0之前选择PageHelper 需要指定方言
+        -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--指定当前数据库连接的平台  dialect:方言 -->
+            <!--<property name="dialect" value="MYSQL"></property>-->
+        </plugin>
+    </plugins>
+
+
+</configuration>    
